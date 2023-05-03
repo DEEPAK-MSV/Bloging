@@ -35,7 +35,7 @@ function Post() {
                   required
                   placeholder='Heading' maxLength={30}
                   value={heading} onChange={(e)=>Setheading(e.target.value)}
-                  className="block w-full text-center rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full text-left rounded-md outline-none border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -43,7 +43,7 @@ function Post() {
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="password" className="block text-sm font-medium leading-6">
-                  Content description
+                  description
                 </label>
               </div>
               <div className="mt-2">
@@ -55,20 +55,20 @@ function Post() {
                   required
                   placeholder='description' maxLength={50}
                   value={discription} onChange={(e)=>Setdiscription(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-center text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md outline-none border-0 p-1.5 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-            <div>
+            <div className='space-y-2'>
+              <h1 className='text-sm font-semibold text-gray-500'>Upload Image for blog</h1>
                 <input type='file' id='image' name='image'
                   value={image} onChange={(e)=>Setimage(e.target.value)}
                 required accept='image/png , image/jpeg' />
-                <h1 className='text-sm font-semibold text-gray-500'>Upload Image for blog</h1>
             </div>
             <div>
                 <textarea placeholder='write your blog here' 
                   value={blog} onChange={(e)=>Setblog(e.target.value)} minLength={200}
-                className='block w-full rounded-md border-0 py-1.5 px-1 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 resize-none overflow-hidden h-60' />
+                className='block w-full rounded-md outline-none border-0 py-1.5 px-1 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 resize-none overflow-hidden h-60' />
             </div>
             <div>
               <button
@@ -76,7 +76,7 @@ function Post() {
                 onClick={handlesubmit}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                Post
               </button>
             </div>
             
