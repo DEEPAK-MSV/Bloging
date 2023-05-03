@@ -6,6 +6,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './Pages/Home.Jsx'
 import Login from './Pages/login.jsx'
 import Register from './Pages/Register.jsx'
+import Post from './Pages/Post.jsx'
+import SinglePost from './Pages/SinglePost.jsx'
 
 
 const router = createBrowserRouter ([
@@ -26,7 +28,12 @@ const router = createBrowserRouter ([
         element:<Register/>
       },
       {
-        path:'/post'
+        path:'/post',
+        element:<Post/>
+      },
+      {
+        path:"/singlepost",
+        element:<SinglePost/>
       }
     ]
   }

@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    * {
+        scroll-behavior: smooth;
+    }
+}
+
 :root {
-    background-color: #0f172a;
-    color: white;
+    background-color: #fff;
+    color: #0f172a;
 }
