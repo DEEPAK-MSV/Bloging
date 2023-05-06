@@ -27,14 +27,19 @@ function Header() {
                     type='search'/>
                     <BiSearch className='text-xl'/>
                 </div>
-                <div className='flex flex-row justify-between items-center space-x-10'>
+                <div className='flex flex-row justify-between items-center space-x-6'>
                     <Link to="post">
                         <div className='text-black cursor-pointer px-4 py-1 rounded space-x-1 flex flex-row items-center font-semibold'>
-                            <h1 className='font-semibold text-lg space-x-1'>Post</h1>
+                            <h1 className='font-bold text-lg space-x-1'>Post</h1>
                         </div>
                     </Link>
                     <div>
                         <Link to="Login">
+                            <h1 className='font-bold text-lg space-x-1'>Login</h1>
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="profile">
                             <FiUser className='text-indigo-600 text-2xl' />
                         </Link>
                     </div>

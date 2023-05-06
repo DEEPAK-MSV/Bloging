@@ -15,8 +15,9 @@ function Login() {
 
   return (
     <>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
+        <div className="flex min-h-full flex-1 flex-col justify-center items-center px-6 lg:px-8">
+          <div className='bg-white shadow-lg mt-20 py-5 lg:px-0 px-3 rounded-lg w-full lg:w-2/4'>
+        <h2 className="text-center text-2xl font-bold leading-9 tracking-tight">
             Sign in to your account
           </h2>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -75,6 +76,7 @@ function Login() {
             </div>
           </form>
         </div>
+          </div>
       </div>
     </>
   )

@@ -8,6 +8,7 @@ import Login from './Pages/login.jsx'
 import Register from './Pages/Register.jsx'
 import Post from './Pages/Post.jsx'
 import SinglePost from './Pages/SinglePost.jsx'
+import Profile from './Pages/Profile.jsx'
 
 
 const router = createBrowserRouter ([
@@ -34,6 +35,10 @@ const router = createBrowserRouter ([
       {
         path:"/singlepost",
         element:<SinglePost/>
+      },
+      {
+        path:"/profile",
+        element:<Profile/>
       }
     ]
   }
