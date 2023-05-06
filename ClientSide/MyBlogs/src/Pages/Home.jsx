@@ -6,7 +6,7 @@ function Home() {
         <main className='flex flex-col justify-center items-center w-full h-full overflow-auto'>
             <div className='mt-16'></div>
             <div className='flex justify-center items-center m-5'>
-                <div className='w-full lg:w-3/5  flex flex-col bg-white p-3 rounded-lg shadow-sm space-y-3 justify-start items-start'>
+                <div className='w-full lg:w-3/5  flex flex-col bg-white hover:shadow-2xl p-3 rounded-lg shadow-sm space-y-3 justify-start items-start'>
                     <div className='flex flex-col lg:flex-row space-x-3'>
                         <div>
                             <img className='h-full w-full rounded-lg' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Radio._CBC_Offices_BAnQ_P48S1P23108_%28cropped%29.jpg/375px-Radio._CBC_Offices_BAnQ_P48S1P23108_%28cropped%29.jpg' />
