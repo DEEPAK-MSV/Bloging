@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const {Sequelize , DataTypes} = require('sequelize');
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -7,28 +7,28 @@ const sequelize = new Sequelize({
 
 const User = sequelize.define('User', {
     username: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
     },
     email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
     },
     password: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
     },
 });
 
 const Post = sequelize.define('Post', {
     title: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     content: {
-        type: Sequelize.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
 });
