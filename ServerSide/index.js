@@ -4,7 +4,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const sequelize = require('./database');
 const User = require('./User');
-const Post = require('./Post');
+const Post = require('./posts');
 
 sequelize.sync().then(() => console.log('Database is ready'));
 
@@ -41,7 +41,7 @@ app.delete('/users/:email', async (req, res) => {
 // Create a new post
 app.post('/posts', upload.single('image'), async (req, res) => {
   const { title, content } = req.body;
-  const token = req.headers.authorization.split(' ')[1];
+  const token = req.headers.authorization.split('')[1];
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const user = await User.findByPk(decoded.userId);
 

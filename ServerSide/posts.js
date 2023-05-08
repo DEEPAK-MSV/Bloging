@@ -2,7 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('./database');
 const User = require('./User');
 
-class Post extends Model {}
+class Post extends Model { }
 
 Post.init({
   heading: {
@@ -16,7 +16,15 @@ Post.init({
   content: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User,
+      key: 'id',
     },
+  },
 }, {
   sequelize,
   modelName: 'post',
