@@ -8,7 +8,24 @@ function Login() {
 
   const handlesubmit = (event)=>{
     event.preventdefault()
-    
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle response data here
+        if (data.success) {
+          console.log('User logged in!');
+        } else {
+          // Login failed
+          console.error(data.message);
+        }
+      })
+      .catch(error => console.error(error));
   }
 
 

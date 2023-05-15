@@ -5,12 +5,14 @@ function Register() {
 
   const [email, Setemail] = useState('')
   const [password, SetPassword] = useState('')
-  const [fname, Setfname] = useState()
-  const [lname, Setlname] = useState()
+  const [f_name, Setfname] = useState()
+  const [l_name, Setlname] = useState()
 
-  const handlesumbit = (event) => {
-    event.preventdefault()
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  
+    };
+  
 
 
   return (
@@ -47,7 +49,7 @@ function Register() {
                   <div className='mt-2'>
                     <input type='text' id='f_name' name='f_name' required placeholder='Firstname'
                       className="block w-full text-center rounded-md outline-none border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={fname} onChange={(e) => { Setfname(e.target.value) }}
+                      value={f_name} onChange={(e) => { Setfname(e.target.value) }}
                     />
                   </div>
                 </div>
@@ -58,7 +60,7 @@ function Register() {
                   <div className='mt-2'>
                     <input type='text' id='l_name' name='l_name' required placeholder='Lastname'
                       className="block w-full text-center rounded-md outline-none border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={lname} onChange={(e) => { Setlname(e.target.value) }}
+                      value={l_name} onChange={(e) => { Setlname(e.target.value) }}
                     />
                   </div>
                 </div>
@@ -86,7 +88,7 @@ function Register() {
               <div>
                 <button
                   type="submit"
-                  onClick={handlesumbit}
+                  onClick={handleSubmit}
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Sign up

@@ -17,7 +17,7 @@ Post.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  user_id: {
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
