@@ -6,10 +6,36 @@ import 'react-quill/dist/quill.snow.css';
 
 function Post() {
   const [value, setValue] = useState('');
-  const [head, setHead]= useState("");
-  const [des,setDes] = useState("");
-  const [image,setImage] = useState("");
+const [head, setHead] = useState('');
+const [image, setImage] = useState('');
 
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  const postData = {
+    value,
+    head,
+    image,
+  };
+
+  try {
+    const response = await fetch('http://localhost:3000/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    });
+
+    if (response.ok) {
+      console.log('posted')
+    } else {
+      console.log('not potsed')
+    }
+  } catch (error) {
+    // Error occurred, handle error
+  }
+};
 
 
   return (
@@ -23,7 +49,7 @@ function Post() {
         <div className='flex flex-row  w-full h-4/6'>
           <ReactQuill theme='snow' value={value} onChange={setValue} placeholder='Write Your Blog' className='w-full h-full'/>
           <div className='flex justify-end items-end align-bottom'>
-            <button className='bg-indigo-600 rounded items-center px-4 py-2 mx-3 shadow-lg text-white font-bold'>
+            <button onClick={handleSubmit} className='bg-indigo-600 rounded items-center px-4 py-2 mx-3 shadow-lg text-white font-bold'>
               post
             </button>
           </div>

@@ -1,19 +1,43 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function Register() {
 
-  const [email, Setemail] = useState('')
-  const [password, SetPassword] = useState('')
-  const [f_name, Setfname] = useState()
-  const [l_name, Setlname] = useState()
+function Register() {
+  const [email, Setemail] = useState('');
+  const [password, SetPassword] = useState('');
+  const [f_name, Setfname] = useState('');
+  const [l_name, Setlname] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
   
+    const userData = {
+      email,
+      password,
+      f_name,
+      l_name,
     };
   
-
+    fetch('http://localhost:3000/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle response data here
+        if (data.success) {
+          console.log('User registered successfully!');
+        } else {
+          // Registration failed
+          console.error(data.message);
+        }
+      })
+      .catch(error => console.error(error));
+  };
+  
 
   return (
     <>
