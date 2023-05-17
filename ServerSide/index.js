@@ -41,14 +41,9 @@ app.delete('/users/:email', async (req, res) => {
 
 
 app.post("/login", async (req, res) => {
-  const { mail, password } = req.body;
-
-  // validate the credentials
-
-  // create a jwt token
-
-  // add it token to response and send it
-  const token = jwt.sign({ mail }, "super-secret",)
+  const { email, password, userId } = req.body;
+  
+  const token = jwt.sign({ email,password,userId }, "super-secret",)
 
   res.json({ "status": "ok", token: token })
 });
@@ -56,12 +51,14 @@ app.post("/login", async (req, res) => {
 
 
 // Create a new post
-app.post('/posts', upload.single('image'), async (req, res) => {
+app.post('/posts', async (req, res) => {
   const { title, content } = req.body;
   const token = req.headers["authorization"].split(' ')[1];
   console.log("token", token);
   const decoded = jwt.verify(token, "super-secret");
+  console.log(decoded)
   const user = await User.findByPk(decoded.userId);
+  console.log('user',user)
 
 
   // generate a random string -> 83ksdkfsdf25 

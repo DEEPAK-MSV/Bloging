@@ -5,7 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 
 
 function Post() {
-  const [value, setValue] = useState('');
+const [value, setValue] = useState('');
 const [head, setHead] = useState('');
 const [image, setImage] = useState('');
 

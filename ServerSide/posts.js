@@ -5,13 +5,13 @@ const User = require('./User');
 class Post extends Model { }
 
 Post.init({
-  heading: {
+  title: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   image_url: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   content: {
     type: DataTypes.STRING,

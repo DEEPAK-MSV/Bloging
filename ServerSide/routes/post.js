@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const post = await Post.create({
-      heading: req.body.heading,
+      title: req.body.title,
       image_url: req.body.image_url,
       userId: req.user.id,
     });
