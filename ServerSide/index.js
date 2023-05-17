@@ -49,7 +49,6 @@ app.post("/login", async (req, res) => {
 });
 
 
-
 // Create a new post
 app.post('/posts', async (req, res) => {
   const { title, content } = req.body;
