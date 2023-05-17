@@ -41,14 +41,14 @@ app.delete('/users/:email', async (req, res) => {
 
 
 app.post("/login", async (req, res) => {
-  const { mail, password } = req.body;
+  const { mail, password, userId } = req.body;
 
   // validate the credentials
 
   // create a jwt token
 
   // add it token to response and send it
-  const token = jwt.sign({ mail }, "super-secret",)
+  const token = jwt.sign({ mail,password,userId }, "super-secret",)
 
   res.json({ "status": "ok", token: token })
 });
