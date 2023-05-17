@@ -116,8 +116,6 @@ app.get('/posts', async (req, res) => {
     include: [{ model: User, attributes: ['id', 'f_name', 'email'] }],
   });
 
-  "http://127.0.0.1:3000/image/" + "83ksdkfsdf25"
-
   res.json(posts);
 });
 
@@ -134,10 +132,6 @@ app.get("/image", (req,res) => {
 app.listen(3000, () => {
   console.log('App is running');
 });
-
-
-
-
 
 //  /posts -> get, post
 //  /users -> get, post
