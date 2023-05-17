@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const sequelize = require('./database');
 const User = require('./User');
 const Post = require('./posts');
+const { Op } = require('sequelize');
+const crypto =require ('crypto')
 
 sequelize.sync().then(() => console.log('Database is ready'));
 
@@ -41,16 +43,34 @@ app.delete('/users/:email', async (req, res) => {
 
 
 app.post("/login", async (req, res) => {
-  const { email, password, userId } = req.body;
-  
-  const token = jwt.sign({ email,password,userId }, "super-secret",)
+  const { email, password } = req.body;
 
-  res.json({ "status": "ok", token: token })
+  // validate the credentials (db)
+  const user = await User.findOne({
+    where: {
+      email: { [Op.eq]: email },
+      password: { [Op.eq]: password }
+    }
+  });
+
+  if (user === null) {
+    res.json({ "message": "email or password invalid", "status": "failed" });
+    return;
+  }
+
+  // create a jwt token
+  const token = jwt.sign({ userId: user.id }, "super-secret", { expiresIn: "1d" });
+
+  // add the token to the response and send it
+  res.json({ "status": "ok", token: token });
 });
 
+function generateRandomString(length) {
+  return crypto.randomBytes(length).toString('hex');
+}
 
 // Create a new post
-app.post('/posts', async (req, res) => {
+app.post('/posts',upload.single('image'), async (req, res) => {
   const { title, content } = req.body;
   const token = req.headers["authorization"].split(' ')[1];
   console.log("token", token);
@@ -58,7 +78,6 @@ app.post('/posts', async (req, res) => {
   console.log(decoded)
   const user = await User.findByPk(decoded.userId);
   console.log('user',user)
-
 
   // generate a random string -> 83ksdkfsdf25 
 
@@ -68,6 +87,16 @@ app.post('/posts', async (req, res) => {
 
   if (!user) {
     return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  let imageUrl = null;
+  if (req.file) {
+    const randomString = generateRandomString(8);
+    const fileExtension = path.extname(req.file.originalname);
+    const fileName = `${randomString}${fileExtension}`;
+    const imagePath = path.join(__dirname, 'uploads', fileName);
+    await fs.promises.rename(req.file.path, imagePath);
+    imageUrl = fileName;
   }
 
   const post = await Post.create({
@@ -95,8 +124,9 @@ app.get('/posts', async (req, res) => {
 // create separate route for getting images
 app.get("/image", (req,res) => {
   // how to image from folder in express js
-
-
+  const imageName = req.params.imageName;
+  const imagePath = path.join(__dirname, 'uploads', imageName);
+  res.sendFile(imagePath);
 })
 
 

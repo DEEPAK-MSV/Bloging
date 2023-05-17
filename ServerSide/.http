@@ -1,12 +1,24 @@
 post http://localhost:3000/posts HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6ImRlZXBhayIsImlhdCI6MTY4NDE1MzIwM30.kGcq5KQOkj1bfmlceYWfJRNVQ8UOjoPhi-_TlZuzzK8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4NDM0MjAwMSwiZXhwIjoxNjg0NDI4NDAxfQ.A3KRiYODH909OlqlW691L0Phypy6Vrq5d5SfEIBDdIg
 
 title=this is title
 &content="this is content"
+&imageUrl="https://images.squarespace-cdn.com/content/v1/55db9c83e4b0b6b2ad7e4b7d/1600459237193-LS5SBF6QJC2FIY26LBVI/IMG_3182+copy.jpg?format=2500w"
 
-# post http://localhost:3000/login HTTP/1.1
-# Content-Type: application/x-www-form-urlencoded
+###
 
-# email=deepak@gmail.com
-# &password=deepak
+post http://localhost:3000/login HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+email=deepak@gmail.com
+&password=deepak
+
+###
+post http://localhost:3000/users HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+email=deepak@gmail.com
+&password=deepak
+&f_name=deepak
+&l_name=kiriti

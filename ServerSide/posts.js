@@ -9,9 +9,9 @@ Post.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  image_url: {
+  imageUrl: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   content: {
     type: DataTypes.STRING,
