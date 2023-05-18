@@ -105,7 +105,6 @@ app.post('/posts',upload.single('image'), async (req, res) => {
     imageUrl: req.file ? req.file.filename : null,
     userId: user.id,
   });
-
   res.json(post);
 });
 
