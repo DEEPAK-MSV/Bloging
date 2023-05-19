@@ -37,7 +37,7 @@ app.put('/users/:email', async (req, res) => {
 
 app.delete('/users/:email', async (req, res) => {
   const requestedEmail = req.params.email;
-  await User.destroy({ where: { email: requestedEmail } });
+  await User.destroy({ where: { email: requestedEmail }});
   res.send('User removed');
 });
 
