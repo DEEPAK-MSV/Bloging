@@ -36,13 +36,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.post("/login", async (req, res) => {
-  const { mail, password } = req.body;
+  const { email, password } = req.body;
   
   // validate the credentials (db)
   const user = await User.findOne({
     where: {
       email: {
-        [Op.eq]: mail
+        [Op.eq]: email
       },
       password: {
         [Op.eq]: password
@@ -85,7 +85,7 @@ app.post('/posts', upload.single('post_image'), async (req, res) => {
     title,
     content,
     heading,
-    image_url: fileName,
+    imageUrl: fileName,
     userId: user.id,
   });
   
