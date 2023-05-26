@@ -6,6 +6,7 @@ const sequelize = require('./database');
 const User = require('./User');
 const Post = require('./posts');
 const { Op } = require("sequelize");
+const cors = require('cors');
 
 function generateRandomString(length) {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -21,6 +22,8 @@ sequelize.sync().then(() => console.log('Database is ready'));
 
 const app = express();
 
+app.use(cors());
+
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
@@ -34,6 +37,32 @@ const upload = multer({ storage: storage });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.post('/users', async (req, res) => {
+  await User.create(req.body);
+  res.send('User created');
+
+});
+
+app.get('/users', async (req, res) => {
+  const users = await User.findAll();
+  res.send(users);
+});
+
+app.put('/users/:email', async (req, res) => {
+  const requestedEmail = req.params.email;
+  const user = await User.findOne({ where: { email: requestedEmail } });
+  user.username = req.body.username;
+  await user.save();
+  res.send('User updated');
+});
+
+app.delete('/users/:email', async (req, res) => {
+  const requestedEmail = req.params.email;
+  await User.destroy({ where: { email: requestedEmail } });
+  res.send('User removed');
+});
+
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -64,7 +93,7 @@ app.post("/login", async (req, res) => {
 
 
 // Create a new post
-app.post('/posts', upload.single('post_image'), async (req, res) => {
+app.post('/posts', upload.single('imageUrl'), async (req, res) => {
   const { title, content, heading } = req.body;
   const token = req.headers["authorization"].split(' ')[1];
   
@@ -74,7 +103,7 @@ app.post('/posts', upload.single('post_image'), async (req, res) => {
   // get the userId from the token payload
   const user = await User.findByPk(decoded.userId);
 
-  // if user is not valid show message Unauthorized
+  // if user is not valid show message Unauthorized yes sir yes sir i just need to write frontend
   if (!user) {
     return res.status(401).json({ message: 'Unauthorized' });
   }

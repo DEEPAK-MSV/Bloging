@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiUser } from 'react-icons/fi'
-import { TfiWrite } from 'react-icons/tfi'
 import { ImBlogger } from 'react-icons/im'
 import { BiSearch } from 'react-icons/bi'
 
