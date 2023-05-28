@@ -15,20 +15,33 @@ function Login() {
     setInputs((prevInputs) => ({ ...prevInputs, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:3000/login', inputs);
-      console.log(inputs)
-      navigate('/');
-    } catch (err) {
-      if (err.response && err.response.data) {
-        setError(err.response.data);
-      } else {
-        setError('An error occurred while processing your request.');
-      }
-    }
+    axios
+      .post('http://localhost:3000/login', inputs)
+      .then((response) => {
+        const authtoken = response.data.token;
+        localStorage.setItem('authtoken', authtoken); 
+        navigate('/');
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          setError(err.response.data);
+        } else {
+          setError('An error occurred while processing your request.');
+        }
+      });
   };
+
+  const storedauthtoken = localStorage.getItem('authtoken');
+
+if (storedauthtoken) {
+  console.log('Authentication token is stored in localStorage:', storedauthtoken);
+} else {
+  console.log('Authentication token is not found in localStorage.');
+}
+
+  
 
   return (
     <>
@@ -77,6 +90,11 @@ function Login() {
                     className="block w-full rounded-md outline-none border-0 py-1.5 text-center text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+              </div>
+              <div>
+                <h1 className='text-red-700 text-sm text-center'>
+                  {error}
+                </h1>
               </div>
               <div>
                 <button
