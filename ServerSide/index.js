@@ -119,7 +119,7 @@ app.post("/login", async (req, res) => {
 
 // Create a new post
 app.post('/posts', upload.single('imageUrl'), async (req, res) => {
-  const { title, content, heading } = req.body;
+  const { title, content, heading, } = req.body;
   const token = req.headers["authorization"].split(' ')[1];
 
   // token verification
@@ -139,6 +139,7 @@ app.post('/posts', upload.single('imageUrl'), async (req, res) => {
     title,
     content,
     heading,
+    aname :user.f_name ,
     imageUrl: fileName,
     userId: user.id,
   });
@@ -153,6 +154,52 @@ app.get('/posts', async (req, res) => {
   });
 
   res.json(posts);
+});
+
+app.get('/posts/:postId', async (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    const post = await Post.findByPk(postId, {
+      include: {
+        model: User,
+        attributes: ['id', 'f_name', 'email']
+      }
+    });
+
+    if (post) {
+      res.json(post);
+    } else {
+      res.status(404).json({ error: 'Post not found' });
+    }
+  } catch (error) {
+    console.log('Error occurred while fetching post:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.put('/posts/:postId', async (req, res) => {
+  const requestedPostId = req.params.postId;
+
+  try {
+    // Find the post by its ID
+    const post = await Post.findOne({ where: { id: requestedPostId } });
+
+    // Update the post's properties with the new values
+    post.title = req.body.title;
+    post.content = req.body.content;
+
+    // Save the updated post
+    await post.save();
+
+    // Respond with a success message
+    res.send('Post updated');
+  } catch (error) {
+    // If an error occurs, respond with an error message
+    console.error('Error updating post:', error);
+    res.status(500).send('An error occurred while updating the post');
+  }
 });
 
 

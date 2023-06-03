@@ -93,7 +93,7 @@ function Register() {
 
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6">
+                  <label htmlFor="password"  className="block text-sm font-medium leading-6">
                     Password
                   </label>
                 </div>
@@ -101,6 +101,7 @@ function Register() {
                   <input
                     id="password"
                     name="password"
+                    pattern="[a-zA-Z0-9@#$]+"
                     type="password"
                     autoComplete="current-password"
                     required

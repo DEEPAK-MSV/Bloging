@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { ImTab } from 'react-icons/im';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
 
 function Post() {
   const [heading, setheading] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImage] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,6 +30,8 @@ function Post() {
 
       if (response.ok) {
         console.log('posted');
+        alert('posted Your Blog');
+        navigate('/')
       } else {
         console.log('not posted');
       }
@@ -56,7 +61,7 @@ function Post() {
             theme="snow"
             value={content}
             onChange={setContent}
-            placeholder="Write Your Blog"
+            placeholder="Write Your Blog" sanitize={true}
             className="w-full h-full"
           />
           <div className='h-3'>

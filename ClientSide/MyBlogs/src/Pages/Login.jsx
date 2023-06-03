@@ -21,16 +21,13 @@ function Login() {
       .post('http://localhost:3000/login', inputs)
       .then((response) => {
         const authtoken = response.data.token;
-        localStorage.setItem('authtoken', authtoken); 
+        localStorage.setItem('authtoken', authtoken);
+        alert('login successfull')
         navigate('/');
       })
       .catch((err) => {
-        if (err.response && err.response.data) {
-          setError(err.response.data);
-        } else {
-          setError('An error occurred while processing your request.');
-        }
-      });
+        setError(err)
+      });          
   };
 
   const storedauthtoken = localStorage.getItem('authtoken');
@@ -92,9 +89,7 @@ if (storedauthtoken) {
                 </div>
               </div>
               <div>
-                <h1 className='text-red-700 text-sm text-center'>
-                  {error}
-                </h1>
+                {error && <h1 className="text-red-700 text-sm text-center">{error}</h1>}
               </div>
               <div>
                 <button
