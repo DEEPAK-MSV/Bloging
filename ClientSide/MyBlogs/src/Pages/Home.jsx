@@ -63,8 +63,8 @@ function Home() {
                 />
               </div>
               <div className="flex flex-col justify-start items-start">
-                <h1 className="font-bold text-lg font-serif">
-                  {post.header}
+                <h1 className="font-semibold">
+                  {post.heading}
                 </h1>
                 <div className="flex w-full justify-end">
                   <h1 className="text-sm text-gray-400 font-mono">

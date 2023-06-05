@@ -7,11 +7,11 @@ function SinglePost() {
 
   useEffect(() => {
     fetchPost(postId);
-  }, [postId]);
+  }, []);
 
   const fetchPost = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:3000/posts/:postId`);
+      const response = await fetch(`http://localhost:3000/posts/${postId}`);
       if (response.ok) {
         const data = await response.json();
         setPost(data);
@@ -22,6 +22,16 @@ function SinglePost() {
       console.log('Error occurred while fetching post:', error);
     }
   };
+
+
+  const getShortenedContent = (content) => {
+    // Remove HTML tags from the content
+    const sanitizedContent = content.replace(/<\/?[^>]+(>|$)/g, '');
+  
+    return sanitizedContent;
+  };
+  
+  
 
   if (!post) {
     return (
@@ -39,7 +49,7 @@ function SinglePost() {
       <div className="mt-16"></div>
       <div className="w-full h-full flex justify-center items-center flex-col">
         <div>
-          <h1 className="font-bold text-lg font-serif">{post.header}</h1>
+          <h1 className="font-bold text-lg font-serif">{post.heading}</h1>
         </div>
         <div>
           <img src={post.imageUrl} alt="Post" />
@@ -50,7 +60,7 @@ function SinglePost() {
           </div>
         </div>
         <div className="w-full md:w-4/6 lg:w-4/6 h-full px-5">
-          <p>{post.content}</p>
+          <p>{getShortenedContent(post.content)}</p>
         </div>
       </div>
     </main>

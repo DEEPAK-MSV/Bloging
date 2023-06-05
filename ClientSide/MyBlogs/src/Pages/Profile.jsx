@@ -73,18 +73,14 @@ function Profile() {
 
 
     if (!userDetails || !userPosts) {
-        return <main className="flex flex-col justify-center items-center w-full h-full overflow-auto">
-            <div className='mt-16'>
-            </div>
-            <div className='flex justify-center items-center'>
-            <BarLoader
-                color="#36d7b7"
-                height={4}
-                speedMultiplier={0.7}
-                width={350}
-            />
-            </div>
-        </main>
+        return (
+            <main className="flex flex-col justify-center items-center w-full h-full overflow-auto">
+              <div className="mt-16"></div>
+              <h1 className="text-2xl font-semibold text-center uppercase">
+                No User Found!
+              </h1>
+            </main>
+          );
     }
 
     return (

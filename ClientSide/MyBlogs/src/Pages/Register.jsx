@@ -20,6 +20,7 @@ function Register() {
     e.preventDefault();
     try {
       await axios.post('http://localhost:3000/users', inputs);
+      alert("registered successfull")
       navigate('/login');
     } catch (err) {
       if (err.response && err.response.data) {

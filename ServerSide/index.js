@@ -82,11 +82,17 @@ app.put('/users/:email', async (req, res) => {
   res.send('User updated');
 });
 
-app.delete('/users/:email', async (req, res) => {
-  const requestedEmail = req.params.email;
-  await User.destroy({ where: { email: requestedEmail } });
-  res.send('User removed');
+app.delete('/users/:id', async (req, res) => {
+  const requestedId = req.params.id;
+  try {
+    await User.destroy({ where: { id: requestedId } });
+    res.send('User removed');
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).send('Error deleting user');
+  }
 });
+
 
 
 app.post("/login", async (req, res) => {
