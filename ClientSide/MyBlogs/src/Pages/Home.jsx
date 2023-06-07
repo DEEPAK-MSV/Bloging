@@ -23,19 +23,17 @@ function Home() {
   };
 
   const getShortenedContent = (content) => {
-    // Remove HTML tags from the content
-    const sanitizedContent = content.replace(/<[^>]+>/g, '');
+  const words = content.split(' ');
+  const shortenedWords = words.slice(0, 50);
+  const shortenedContent = shortenedWords.join(' ');
 
-    const words = sanitizedContent.split(' ');
-    const shortenedWords = words.slice(0, 50);
-    const shortenedContent = shortenedWords.join(' ');
+  if (words.length > 50) {
+    return `${shortenedContent}...`;
+  }
 
-    if (words.length > 50) {
-      return `${shortenedContent}...`;
-    }
+  return shortenedContent;
+};
 
-    return shortenedContent;
-  };
 
   if (!posts || posts.length === 0) {
     return (
@@ -49,21 +47,22 @@ function Home() {
   }
 
   return (
-    <main className="flex flex-col justify-center items-center w-full h-full overflow-auto">
+    <main className="flex flex-col justify-center items-center w-full h-full">
       <div className="mt-16"></div>
       {posts.map((post) => (
-        <div key={post.id} className="flex justify-center items-center m-5">
-          <div className="w-full lg:w-3/5 flex flex-col bg-white hover:shadow-2xl p-3 rounded-lg shadow-sm space-y-3 justify-start items-start">
+        <div key={post.id} className="flex justify-center items-center w-full ">
+          <div className="w-full flex flex-col m-2 bg-white hover:shadow-2xl p-3 rounded-lg shadow-sm space-y-3 justify-start items-start">
             <div className="flex flex-col lg:flex-row space-x-3">
               <div>
                 <img
                   className="h-full w-full rounded-lg"
-                  src={post.imageUrl}
+                  src={`https://picsum.photos/300/200?random=${post.id}`}
+                  //src={post.imageUrl}
                   alt="Post"
                 />
               </div>
-              <div className="flex flex-col justify-start items-start">
-                <h1 className="font-semibold">
+              <div className="flex flex-col justify-between items-start">
+                <h1 className="font-semibold whitespace-nowrap">
                   {post.heading}
                 </h1>
                 <div className="flex w-full justify-end">
@@ -74,7 +73,7 @@ function Home() {
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium">
+              <p className="text-sm font-medium whitespace-pre-wrap">
                 {getShortenedContent(post.content)}
               </p>
             </div>

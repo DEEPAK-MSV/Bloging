@@ -104,7 +104,8 @@ function Profile() {
                             className="w-full space-x-7 rounded-lg flex-col md:flex-row lg:flex-row flex justify-start items-start bg-white shadow-sm p-2"
                         >
                             <div className="w-4/6">
-                                <img className="h-full w-full rounded-lg" src={post.imageUrl} alt="Post Image" />
+                                <img className="h-full w-full rounded-lg" //src={post.imageUrl}
+                                src={`https://picsum.photos/300/200?random=${post.id}`} alt="Post Image" />
                             </div>
                             <div className="flex flex-col justify-between items-start">
                                 <div className="pb-2">

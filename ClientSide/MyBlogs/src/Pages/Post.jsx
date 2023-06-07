@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 function Post() {
   const [heading, setHeading] = useState('');
   const [content, setContent] = useState('');
+  const [imageFile, setImageFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!imageFile || imageFile.width !== 300 || imageFile.height !== 200) {
+      alert('Please select an image with a resolution of 300x200 pixels.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('heading', heading);
     formData.append('content', content);
-    formData.append('image', imageUrl); 
-    
+    formData.append('imageUrl', imageUrl);
+
     try {
-      const response = await axios.post('http://localhost:3000/posts', formData, {
+      const response = await fetch('http://localhost:3000/posts', {
+        method: 'POST',
         headers: {
-          'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${localStorage.getItem('authtoken')}`,
         },
+        body: formData,
       });
 
       if (response.status === 200) {
@@ -40,42 +43,54 @@ function Post() {
     }
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setImageUrl(URL.createObjectURL(file));
+    setImageFile(file);
+  };
+
   return (
-    <main className="flex h-screen w-full flex-1 flex-col justify-center items-center px-6 lg:px-8">
-      <div className="w-full h-full bg-white shadow-lg p-2 mt-16 rounded-xl flex flex-col">
-        <div className="flex flex-row w-full h-1/6 justify-between items-center">
-          <input
-            className="w-2/6 border-gray-300 border-2 rounded p-2"
-            placeholder="Heading"
-            value={heading}
-            onChange={(e) => setHeading(e.target.value)}
-            required
-          />
-          <input
-            type="file"
-            accept="image/jpeg,image/png"
-            onChange={(e) => setImageUrl(e.target.files[0])}
-            required
-          />
-        </div>
-        <div className="flex flex-row w-full h-4/6">
-          <ReactQuill
-            theme="snow"
-            value={content}
-            onChange={setContent}
-            sanitize={false}
-            placeholder="Write Your Blog"
-            className="w-full h-full whitespace-pre-wrap"
-          />
-          <div className="h-3">
+    <main className="flex bg-white flex-col justify-center items-center w-full h-full overflow-auto">
+      <div className="mt-16"></div>
+      <div className="bg-white rounded-lg w-full h-full flex-1 flex flex-col">
+        <h1 className='text-center text-2xl font-semibold text-indigo-600'>Post Your Blog!</h1>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <div className="flex flex-row justify-between items-center p-3">
+            <input
+              id="heading"
+              placeholder="Enter heading"
+              value={heading}
+              className="w-2/5 border-gray-300 border-2 rounded p-2"
+              onChange={(e) => setHeading(e.target.value)}
+              required
+            />
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              required
+            />
+          </div>
+          <div className="flex flex-1 w-full h-full p-3">
+            <textarea
+              id="content"
+              placeholder="Write your blog content"
+              className="w-full h-screen resize-none border-2 border-gray-300 rounded p-2"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+            />
+          </div>
+          <div className="flex justify-end items-end p-3">
             <button
-              onClick={handleSubmit}
-              className="bg-indigo-600 rounded px-4 items-end mb-2 py-1 mx-3 shadow-lg text-white font-bold"
+              type="submit"
+              className="bg-indigo-600 text-white font-bold py-2 px-4 rounded shadow-lg"
             >
               Post
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </main>
   );

@@ -22,28 +22,24 @@ function Login() {
       .then((response) => {
         const authtoken = response.data.token;
         localStorage.setItem('authtoken', authtoken);
-        alert('login successfull')
-        navigate('/');
+        const storedtoken = localStorage.getItem('authtoken');
+        if (storedtoken){
+          navigate('/');
+        }
       })
-      .catch((err) => {
-        setError(err)
-      });          
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          setError('Invalid email or password');
+        } else {
+          setError('An error occurred. Please try again later.');
+        }
+      });
   };
-
-  const storedauthtoken = localStorage.getItem('authtoken');
-
-if (storedauthtoken) {
-  console.log('Authentication token is stored in localStorage:', storedauthtoken);
-} else {
-  console.log('Authentication token is not found in localStorage.');
-}
-
-  
 
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center items-center px-6 lg:px-8">
-        <div className='bg-white shadow-lg mt-20 py-5 lg:px-0 px-3 rounded-lg w-full lg:w-2/4'>
+        <div className="bg-white shadow-lg mt-20 py-5 lg:px-0 px-3 rounded-lg w-full lg:w-2/4">
           <h2 className="text-center text-2xl font-bold leading-9 tracking-tight">
             Sign in to your account
           </h2>
@@ -94,7 +90,6 @@ if (storedauthtoken) {
               <div>
                 <button
                   type="submit"
-                  onClick={handleSubmit}
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Sign in
@@ -103,7 +98,9 @@ if (storedauthtoken) {
               <div className="text-sm space-x-2 flex felx-row items-center justify-center">
                 <h1>Don't have an account?</h1>
                 <Link to="/register">
-                  <p className="font-semibold text-lg text-indigo-500 hover:text-indigo-600">Register</p>
+                  <p className="font-semibold text-lg text-indigo-500 hover:text-indigo-600">
+                    Register
+                  </p>
                 </Link>
               </div>
             </form>
@@ -111,7 +108,7 @@ if (storedauthtoken) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;

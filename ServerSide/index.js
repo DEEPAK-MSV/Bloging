@@ -82,10 +82,10 @@ app.put('/users/:email', async (req, res) => {
   res.send('User updated');
 });
 
-app.delete('/users/:id', async (req, res) => {
-  const requestedId = req.params.id;
+app.delete('/users/:email', async (req, res) => {
+  const requestedEmail = req.params.email;
   try {
-    await User.destroy({ where: { id: requestedId } });
+    await User.destroy({ where: { email: requestedEmail } });
     res.send('User removed');
   } catch (error) {
     console.error('Error deleting user:', error);
@@ -93,33 +93,26 @@ app.delete('/users/:id', async (req, res) => {
   }
 });
 
-
-
-app.post("/login", async (req, res) => {
+app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  // validate the credentials (db)
-  const user = await User.findOne({
-    where: {
-      email: {
-        [Op.eq]: email
-      },
-      password: {
-        [Op.eq]: password
-      }
+  try {
+    // Validate the credentials against the database
+    const user = await User.findOne({ where: { email, password } });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
-  });
 
-  if (user === null) {
-    res.json({ "message": "email or password invalid", "status": "failed" });
-    return;
-  } 
+    // Create a JWT token
+    const token = jwt.sign({ userId: user.id }, 'super-secret', { expiresIn: '1d' });
 
-  // create a jwt token
-  const token = jwt.sign({ userId: user.id }, "super-secret", { expiresIn: "1d" });
-
-  // add it token to response and send it
-  res.json({ "status": "ok", token: token });
+    // Return the token in the response
+    res.json({ status: 'ok', token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred. Please try again later.' });
+  }
 });
 
 

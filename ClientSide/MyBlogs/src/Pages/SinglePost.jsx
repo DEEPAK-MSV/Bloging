@@ -23,16 +23,6 @@ function SinglePost() {
     }
   };
 
-
-  const getShortenedContent = (content) => {
-    // Remove HTML tags from the content
-    const sanitizedContent = content.replace(/<\/?[^>]+(>|$)/g, '');
-  
-    return sanitizedContent;
-  };
-  
-  
-
   if (!post) {
     return (
       <main className="flex flex-col justify-center items-center w-full h-full overflow-auto">
@@ -45,7 +35,7 @@ function SinglePost() {
   }
 
   return (
-    <main className="flex flex-col justify-center items-center w-full h-full overflow-auto">
+    <main className="flex flex-col justify-center items-center w-full h-full">
       <div className="mt-16"></div>
       <div className="w-full h-full flex justify-center items-center flex-col">
         <div>
@@ -60,7 +50,7 @@ function SinglePost() {
           </div>
         </div>
         <div className="w-full md:w-4/6 lg:w-4/6 h-full px-5">
-          <p>{getShortenedContent(post.content)}</p>
+          <p className='whitespace-pre-wrap text-xl font-semobold'>{post.content}</p>
         </div>
       </div>
     </main>
