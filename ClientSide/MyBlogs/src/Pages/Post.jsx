@@ -17,8 +17,8 @@ function Post() {
     const formData = new FormData();
     formData.append('heading', heading);
     formData.append('content', content);
-    formData.append('imageUrl', imageUrl);
-
+    formData.append('image', imageUrl); 
+    
     try {
       const response = await axios.post('http://localhost:3000/posts', formData, {
         headers: {
