@@ -36,6 +36,7 @@ const upload = multer({ storage: storage });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.post('/users', async (req, res) => {
   await User.create(req.body);
@@ -118,7 +119,7 @@ app.post('/login', async (req, res) => {
 
 // Create a new post
 app.post('/posts', upload.single('imageUrl'), async (req, res) => {
-  const { title, content, heading, } = req.body;
+  const { title, content, heading } = req.body;
   const token = req.headers["authorization"].split(' ')[1];
 
   // token verification
@@ -158,24 +159,18 @@ app.get('/posts', async (req, res) => {
 app.get('/posts/:postId', async (req, res) => {
   try {
     const postId = req.params.postId;
-
-    const post = await Post.findByPk(postId, {
-      include: {
-        model: User,
-        attributes: ['id', 'f_name', 'email']
-      }
-    });
-
+    const post = await Post.findOne({ where: { id: postId } });
     if (post) {
       res.json(post);
     } else {
       res.status(404).json({ error: 'Post not found' });
     }
   } catch (error) {
-    console.log('Error occurred while fetching post:', error);
+    console.error('Error occurred while fetching post:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 
 app.put('/posts/:postId', async (req, res) => {

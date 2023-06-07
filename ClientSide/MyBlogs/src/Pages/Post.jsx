@@ -4,15 +4,14 @@ import { useNavigate } from 'react-router-dom';
 function Post() {
   const [heading, setHeading] = useState('');
   const [content, setContent] = useState('');
-  const [imageFile, setImageFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setimageUrl] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!imageFile || imageFile.width !== 300 || imageFile.height !== 200) {
-      alert('Please select an image with a resolution of 300x200 pixels.');
+    if (!imageUrl || imageUrl.width >= 300 || imageUrl.height >= 200) {
+      alert('Please select an image with a resolution of at least 300x200 pixels.');
       return;
     }
 
@@ -45,8 +44,7 @@ function Post() {
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    setImageUrl(URL.createObjectURL(file));
-    setImageFile(file);
+    setimageUrl(file);
   };
 
   return (
@@ -54,7 +52,7 @@ function Post() {
       <div className="mt-16"></div>
       <div className="bg-white rounded-lg w-full h-full flex-1 flex flex-col">
         <h1 className='text-center text-2xl font-semibold text-indigo-600'>Post Your Blog!</h1>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-row justify-between items-center p-3">
             <input
               id="heading"
