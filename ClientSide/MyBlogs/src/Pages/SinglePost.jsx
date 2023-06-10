@@ -37,19 +37,19 @@ function SinglePost() {
   return (
     <main className="flex flex-col justify-center items-center w-full h-full">
       <div className="mt-16"></div>
-      <div className="w-full h-full flex justify-center items-center flex-col">
+      <div className="w-full h-full flex justify-center items-center space-y-3 flex-col">
         <div>
-          <h1 className="font-bold text-lg font-serif">{post.heading}</h1>
+          <h1 className="font-bold text-3xl font-serif">{post.heading}</h1>
         </div>
         <div>
-          <img src={post.imageUrl} alt="Post" />
+          <img src={`http://localhost:3000/image/${post.imageUrl}`} alt="Post" />
           <div className="flex w-full justify-end">
             <h1 className="text-sm text-gray-400 font-mono">
               - posted by {post.aname}
             </h1>
           </div>
         </div>
-        <div className="w-full md:w-4/6 lg:w-4/6 h-full px-5">
+        <div className="w-full md:w-4/6 lg:w-5/6 h-full px-5">
           <p className='whitespace-pre-wrap text-xl font-semobold'>{post.content}</p>
         </div>
       </div>

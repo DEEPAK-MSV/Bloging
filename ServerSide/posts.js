@@ -32,7 +32,7 @@ Post.init({
 }, {
   sequelize,
   modelName: 'post',
-  timestamps: false,
+  timestamps: true,
 });
 
 Post.belongsTo(User);

@@ -10,7 +10,7 @@ function Post() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!imageUrl || imageUrl.width >= 300 || imageUrl.height >= 200) {
+    if (!imageUrl || imageUrl.width == 300 || imageUrl.height == 200) {
       alert('Please select an image with a resolution of at least 300x200 pixels.');
       return;
     }

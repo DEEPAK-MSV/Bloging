@@ -140,7 +140,7 @@ app.post('/posts', upload.single('imageUrl'), async (req, res) => {
     content,
     heading,
     aname :user.f_name ,
-    imageUrl: fileName,
+    imageUrl: req.file.filename,
     userId: user.id,
   });
 
@@ -156,20 +156,33 @@ app.get('/posts', async (req, res) => {
   res.json(posts);
 });
 
-app.get('/posts/:postId', async (req, res) => {
+app.get('/posts/profile', async (req, res) => {
   try {
-    const postId = req.params.postId;
-    const post = await Post.findOne({ where: { id: postId } });
-    if (post) {
-      res.json(post);
+    const token = req.headers["authorization"].split(' ')[1];
+    const decoded = jwt.verify(token, 'super-secret');
+    
+    if (!decoded.userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
+    const posts = await Post.findAll({
+      where: {
+        userId: decoded.userId
+      }
+    });
+    
+    if (posts.length > 0) {
+      res.json(posts);
     } else {
-      res.status(404).json({ error: 'Post not found' });
+      res.status(404).json({ error: 'No posts found for the user' });
     }
   } catch (error) {
-    console.error('Error occurred while fetching post:', error);
+    console.error('Error occurred while fetching posts:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 
 

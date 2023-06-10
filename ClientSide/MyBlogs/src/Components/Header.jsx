@@ -62,7 +62,7 @@ function Header() {
               </button>
               <div className="text-black cursor-pointer px-4 py-1 rounded space-x-1 flex flex-row items-center font-semibold">
                 <Link to="/post">
-                  <h1 className="font-bold text-lg space-x-1">Post</h1>
+                  <h1 className="font-bold text-lg space-x-1">Write</h1>
                 </Link>
               </div>
             </div>

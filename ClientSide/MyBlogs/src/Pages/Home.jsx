@@ -56,7 +56,7 @@ function Home() {
               <div>
                 <img
                   className="h-full w-full rounded-lg"
-                  src={`https://picsum.photos/300/200?random=${post.id}`}
+                  src={`http://localhost:3000/image/${post.imageUrl}`}
                   //src={post.imageUrl}
                   alt="Post"
                 />
